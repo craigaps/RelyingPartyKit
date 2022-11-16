@@ -7,22 +7,22 @@ import Foundation
 /// Represents an access token.
 public struct Token: Decodable {
     /// The access token that is issued by the authorization server.
-    let accessToken: String
+    public let accessToken: String
     
     /// The type of the access token.
     ///
     /// Default is `Bearer`.
-    let tokenType: String
+    public let tokenType: String
     
     /// The lifetime, in seconds, of the access token.
     ///
     /// Default is `3600`.
-    let expiry: Int
+    public let expiry: Int
     
     /// An artifact that proves that the user has been authenticated.
     ///
     /// Default is `nil`.
-    let idToken: String?
+    public let idToken: String?
     
     
     /// The HTTP authorization header value for requests to an OpenID Connect service.
@@ -31,7 +31,7 @@ public struct Token: Decodable {
     /// ```
     /// Bearer a1b2c3d4
     /// ```
-    var authorizationHeader: String {
+    public var authorizationHeader: String {
         return "\(tokenType) \(accessToken)"
     }
     

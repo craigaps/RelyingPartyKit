@@ -24,13 +24,13 @@ struct UserSignUp: Encodable {
 /// A structure that describes a one-time password challenge.
 public struct OTPChallenge: Decodable {
     /// The unique identifier of the verification.
-    let transactionId: String
+    public let transactionId: String
     
     /// A value to be associated with the verification. It will be prefixed to the one-time password in the email to be sent.
-    let correlation: String
+    public let correlation: String
     
     /// The time when the verification expires.
-    let expiry: Date
+    public let expiry: Date
 }
 
 /// A strucutre that describes a one-time password verification.
