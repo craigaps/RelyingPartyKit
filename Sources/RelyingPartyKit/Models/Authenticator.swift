@@ -5,7 +5,7 @@
 import Foundation
 
 /// The type of FIDO2 challenge.
-enum ChallengeType: String, Codable {
+public enum ChallengeType: String, Codable {
     /// To attest to the provenance of an authenticator.
     case attestation
     
@@ -25,7 +25,7 @@ struct ChallengeRequest: Encodable {
 }
 
 /// A structure representing a FIDO2 challenge.
-struct FIDO2Challenge: Decodable {
+public struct FIDO2Challenge: Decodable {
     /// The unique challenge that is used as part of this attestation or assertion attempt.
     let challenge: String
 }

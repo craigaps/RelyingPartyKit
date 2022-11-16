@@ -5,7 +5,7 @@
 import Foundation
 
 /// Represents an access token.
-struct Token: Decodable {
+public struct Token: Decodable {
     /// The access token that is issued by the authorization server.
     let accessToken: String
     

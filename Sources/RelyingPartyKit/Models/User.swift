@@ -22,7 +22,7 @@ struct UserSignUp: Encodable {
 }
 
 /// A structure that describes a one-time password challenge.
-struct OTPChallenge: Decodable {
+public struct OTPChallenge: Decodable {
     /// The unique identifier of the verification.
     let transactionId: String
     

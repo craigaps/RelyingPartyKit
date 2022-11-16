@@ -39,7 +39,7 @@ public struct RelyingPartyClient {
     /// // Print the access token.
     /// print(result)
     /// ```
-    func authenticate(username: String, password: String) async throws -> Token {
+    public func authenticate(username: String, password: String) async throws -> Token {
         // Create and encode the username and password.
         let authenticate = UserAuthentication(username: username, password: password)
         let body = try JSONEncoder().encode(authenticate)
@@ -76,7 +76,7 @@ public struct RelyingPartyClient {
     /// // Print the sign-up challenge.
     /// print(result)
     /// ```
-    func signup(name: String, email: String) async throws -> OTPChallenge {
+    public func signup(name: String, email: String) async throws -> OTPChallenge {
         // Create and encode the name and email.
         let user = UserSignUp(name: name, email: email)
         let body = try JSONEncoder().encode(user)
@@ -114,7 +114,7 @@ public struct RelyingPartyClient {
     /// ```
     ///
     /// A successful one-time password vallidation results in the user account being created.
-    func validate(transactionId: String, otp: String) async throws -> Token {
+    public func validate(transactionId: String, otp: String) async throws -> Token {
         // Create and encode the transaction identifier and otp.
         let validation = OTPVerification(transactionId: transactionId, otp: otp)
         let body = try JSONEncoder().encode(validation)
@@ -167,7 +167,7 @@ public struct RelyingPartyClient {
     /// ```
     ///
     /// A successful one-time password vallidation results in the user account being created.
-    func challenge(type: ChallengeType, displayName: String? = nil, token: Token? = nil) async throws -> FIDO2Challenge {
+    public func challenge(type: ChallengeType, displayName: String? = nil, token: Token? = nil) async throws -> FIDO2Challenge {
         // Create and encode the FIDO challenge request.
         let challenge = ChallengeRequest(displayName: displayName, type: type)
         let body = try JSONEncoder().encode(challenge)
@@ -230,7 +230,7 @@ public struct RelyingPartyClient {
     ///  // Handle the error.
     ///}
     /// ```
-    func register(nickname: String, clientDataJSON: Data, attestationObject: Data, credentialId: Data, token: Token) async throws {
+    public func register(nickname: String, clientDataJSON: Data, attestationObject: Data, credentialId: Data, token: Token) async throws {
         // Create and encode the FIDO2 registration data.
         let registration = FIDO2Registration(nickname: nickname,
                                              clientDataJSON: clientDataJSON.base64UrlEncodedString(),
@@ -291,7 +291,7 @@ public struct RelyingPartyClient {
     ///  // Handle the error.
     ///}
     /// ```
-    func signin(signature: Data, clientDataJSON: Data, authenticatorData: Data, credentialId: Data) async throws -> Token {
+    public func signin(signature: Data, clientDataJSON: Data, authenticatorData: Data, credentialId: Data) async throws -> Token {
         // Create and encode the FIDO2 registration data.
         let verification = FIDO2Verification(clientDataJSON: clientDataJSON.base64UrlEncodedString(),
                                              authenticatorData: authenticatorData.base64UrlEncodedString(options: [.safeUrlCharacters]),
