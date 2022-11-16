@@ -197,8 +197,8 @@ public struct RelyingPartyClient {
     /// A request to present an attestation object containing a public key to the server for attestation verification and storage.
     /// - Parameters:
     ///   - nickname: The friendly name for the registration.
-    ///   - attestationObject: A data object that contains the returned attestation.
     ///   - clientDataJSON: Raw data that contains a JSON-compatible encoding of the client data.
+    ///   - attestationObject: A data object that contains the returned attestation.
     ///   - credentialId: An identifier that the authenticator generates during registration to uniquely identify a specific credential.
     ///   - token: Represents an access token.
     ///
@@ -257,8 +257,8 @@ public struct RelyingPartyClient {
     /// A request to present the signed challenge to the server for verification.
     /// - Parameters:
     ///   - signature: The signature for the assertion.
-    ///   - authenticatorData: A byte sequence that contains additional information about the credential.
     ///   - clientDataJSON: Raw data that contains a JSON-compatible encoding of the client data.
+    ///   - authenticatorData: A byte sequence that contains additional information about the credential.
     ///   - credentialId: An identifier that the authenticator generates during registration to uniquely identify a specific credential.
     /// - Returns: A ``Token`` representing an authenticated user.
     ///
