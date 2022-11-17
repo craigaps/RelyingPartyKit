@@ -233,9 +233,9 @@ public struct RelyingPartyClient {
     public func register(nickname: String, clientDataJSON: Data, attestationObject: Data, credentialId: Data, token: Token) async throws {
         // Create and encode the FIDO2 registration data.
         let registration = FIDO2Registration(nickname: nickname,
-                                             clientDataJSON: clientDataJSON.base64UrlEncodedString(),
-                                             attestationObject: attestationObject.base64UrlEncodedString(options: [.safeUrlCharacters]),
-                                             credentialId: credentialId.base64UrlEncodedString(options: [.safeUrlCharacters]))
+                                             clientDataJSON: clientDataJSON.base64UrlEncodedString(options: [.safeUrlCharacters, .noPaddingCharacters]),
+                                             attestationObject: attestationObject.base64UrlEncodedString(options: [.safeUrlCharacters, .noPaddingCharacters]),
+                                             credentialId: credentialId.base64UrlEncodedString(options: [.safeUrlCharacters, .noPaddingCharacters]))
         let body = try JSONEncoder().encode(registration)
         print("Register: \(registration)")
         
