@@ -237,6 +237,8 @@ public struct RelyingPartyClient {
                                              attestationObject: attestationObject.base64UrlEncodedString(options: [.safeUrlCharacters]),
                                              credentialId: credentialId.base64UrlEncodedString(options: [.safeUrlCharacters]))
         let body = try JSONEncoder().encode(registration)
+        print("Register: \(registration)")
+        
         let url = baseURL.appendingPathComponent("/v1/register")
         
         // Set the request properties.
