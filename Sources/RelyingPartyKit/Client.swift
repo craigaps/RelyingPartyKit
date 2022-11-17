@@ -238,12 +238,12 @@ public struct RelyingPartyClient {
         {
             "type": "public-key",
             "enabled": "true",
-            "id": "\(credentialId.base64UrlEncodedString(options: [.safeUrlCharacters, .noPaddingCharacters]))",
-            "rawId": "\(credentialId.base64UrlEncodedString(options: [.safeUrlCharacters, .noPaddingCharacters]))",
+            "id": "\(credentialId.base64UrlEncodedString(options: [.safeUrlCharacters]))",
+            "rawId": "\(credentialId.base64UrlEncodedString(options: [.safeUrlCharacters]))",
             "nickname": "\(nickname)",
             "response": {
-                "clientDataJSON": "\(clientDataJSON.base64UrlEncodedString(options: [.safeUrlCharacters, .noPaddingCharacters]))",
-                "attestationObject": "\(attestationObject.base64UrlEncodedString(options: [.safeUrlCharacters, .noPaddingCharacters]))"
+                "clientDataJSON": "\(clientDataJSON.base64UrlEncodedString())",
+                "attestationObject": "\(attestationObject.base64UrlEncodedString(options: [.safeUrlCharacters]))"
             }
         }
         """
