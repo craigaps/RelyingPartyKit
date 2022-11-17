@@ -233,9 +233,9 @@ public struct RelyingPartyClient {
     public func register(nickname: String, clientDataJSON: Data, attestationObject: Data, credentialId: Data, token: Token) async throws {
         // Create and encode the FIDO2 registration data.
         let registration = FIDO2Registration(nickname: nickname,
-                                             clientDataJSON: clientDataJSON.base64UrlEncodedString(options: [.safeUrlCharacters, .noPaddingCharacters]),
-                                             attestationObject: attestationObject.base64UrlEncodedString(options: [.safeUrlCharacters, .noPaddingCharacters]),
-                                             credentialId: credentialId.base64UrlEncodedString(options: [.safeUrlCharacters, .noPaddingCharacters]))
+                                             clientDataJSON: clientDataJSON.base64UrlEncodedString(),
+                                             attestationObject: attestationObject.base64UrlEncodedString(),
+                                             credentialId: credentialId.base64UrlEncodedString())
         let body = try JSONEncoder().encode(registration)
         print("Register: \(registration)")
         
@@ -296,9 +296,9 @@ public struct RelyingPartyClient {
     public func signin(signature: Data, clientDataJSON: Data, authenticatorData: Data, credentialId: Data) async throws -> Token {
         // Create and encode the FIDO2 registration data.
         let verification = FIDO2Verification(clientDataJSON: clientDataJSON.base64UrlEncodedString(),
-                                             authenticatorData: authenticatorData.base64UrlEncodedString(options: [.safeUrlCharacters]),
-                                             credentialId: credentialId.base64UrlEncodedString(options: [.safeUrlCharacters]),
-                                             signature: signature.base64UrlEncodedString(options: [.safeUrlCharacters, .noPaddingCharacters]))
+                                             authenticatorData: authenticatorData.base64UrlEncodedString(),
+                                             credentialId: credentialId.base64UrlEncodedString(),
+                                             signature: signature.base64UrlEncodedString())
         let body = try JSONEncoder().encode(verification)
         let url = baseURL.appendingPathComponent("/v1/signin")
         
