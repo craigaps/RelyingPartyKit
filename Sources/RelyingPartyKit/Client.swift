@@ -231,22 +231,35 @@ public struct RelyingPartyClient {
     ///}
     /// ```
     public func register(nickname: String, clientDataJSON: Data, attestationObject: Data, credentialId: Data, token: Token) async throws {
-        // Create and encode the FIDO2 registration data.
-        let registration = FIDO2Registration(nickname: nickname,
-                                             clientDataJSON: clientDataJSON.base64UrlEncodedString(),
-                                             attestationObject: attestationObject.base64UrlEncodedString(options: [.safeUrlCharacters]),
-                                             credentialId: credentialId.base64UrlEncodedString(options: [.safeUrlCharacters]))
-        let body = try JSONEncoder().encode(registration)
         let url = baseURL.appendingPathComponent("/v1/register")
+        
+        // Create the attestation result request data.
+        let json = """
+        {
+            "type": "public-key",
+            "enabled": "true",
+            "id": "\(credentialId.base64UrlEncodedString(options: [.safeUrlCharacters]))",
+            "rawId": "\(credentialId.base64UrlEncodedString(options: [.safeUrlCharacters]))",
+            "nickname": "\(nickname)",
+            "response": {
+                "clientDataJSON": "\(clientDataJSON.base64UrlEncodedString())",
+                "attestationObject": "\(attestationObject.base64UrlEncodedString(options: [.safeUrlCharacters]))"
+            }
+        }
+        """
+        
+        print("Attestation Result Request (payload):\n\t\(json)")
+        let body = Data(json.utf8)
         
         // Set the request properties.
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(token.authorizationHeader, forHTTPHeaderField: "Authorization")
+        request.httpBody = body
         
         // Submit the request and decode the response.
-        let (data, response) = try await URLSession.shared.upload(for: request, from: body)
+        let (data, response) = try await URLSession.shared.data(for: request)
         
         // Check the response status for 200 range.
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
@@ -292,21 +305,32 @@ public struct RelyingPartyClient {
     ///}
     /// ```
     public func signin(signature: Data, clientDataJSON: Data, authenticatorData: Data, credentialId: Data) async throws -> Token {
-        // Create and encode the FIDO2 registration data.
-        let verification = FIDO2Verification(clientDataJSON: clientDataJSON.base64UrlEncodedString(),
-                                             authenticatorData: authenticatorData.base64UrlEncodedString(options: [.safeUrlCharacters]),
-                                             credentialId: credentialId.base64UrlEncodedString(options: [.safeUrlCharacters]),
-                                             signature: signature.base64UrlEncodedString(options: [.safeUrlCharacters, .noPaddingCharacters]))
-        let body = try JSONEncoder().encode(verification)
         let url = baseURL.appendingPathComponent("/v1/signin")
+        
+        let json = """
+        {
+            "type": "public-key",
+            "id": "\(credentialId.base64UrlEncodedString(options: [.safeUrlCharacters]))",
+            "rawId": "\(credentialId.base64UrlEncodedString(options: [.safeUrlCharacters]))",
+            "response": {
+                "clientDataJSON": "\(clientDataJSON.base64UrlEncodedString())",
+                "authenticatorData": "\(authenticatorData.base64UrlEncodedString(options: [.safeUrlCharacters]))",
+                "signature": "\(signature.base64UrlEncodedString(options: [.safeUrlCharacters, .noPaddingCharacters]))"
+            }
+        }
+        """
+        
+        print("Assertion Result Request (payload):\n\t\(json)")
+        let body = Data(json.utf8)
         
         // Set the request properties.
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = body
         
         // Submit the request and decode the response.
-        let (data, response) = try await URLSession.shared.upload(for: request, from: body)
+        let (data, response) = try await URLSession.shared.data(for: request)
         
         // Check the response status for 200 range.
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
