@@ -2,9 +2,11 @@ import XCTest
 @testable import RelyingPartyKit
 
 final class RelyingPartyKitTests: XCTestCase {
+    let baseURL = "https://rps-app.vb76iz9iykg.au-syd.codeengine.appdomain.cloud"
+    
     func testAuthenticate() async throws {
         // Where
-        let client = RelyingPartyClient(baseURL: URL(string: "https://rps-app.vb76iz9iykg.au-syd.codeengine.appdomain.cloud")!)
+        let client = RelyingPartyClient(baseURL: URL(string: baseURL)!)
         
         // When
         do {
@@ -18,7 +20,7 @@ final class RelyingPartyKitTests: XCTestCase {
     
     func testSignup() async throws {
         // Where
-        let client = RelyingPartyClient(baseURL: URL(string: "https://rps-app.vb76iz9iykg.au-syd.codeengine.appdomain.cloud")!)
+        let client = RelyingPartyClient(baseURL: URL(string: baseURL)!)
         
         // When
         let result = try await client.signup(name: "Norm", email: "norm@mailinator.com")
@@ -30,7 +32,7 @@ final class RelyingPartyKitTests: XCTestCase {
     
     func testValidate() async throws {
         // Given
-        let client = RelyingPartyClient(baseURL: URL(string: "https://rps-app.vb76iz9iykg.au-syd.codeengine.appdomain.cloud")!)
+        let client = RelyingPartyClient(baseURL: URL(string: baseURL)!)
         
         // When
         do {
@@ -44,7 +46,7 @@ final class RelyingPartyKitTests: XCTestCase {
     
     func testChallengeAssertion() async throws {
         // Given
-        let client = RelyingPartyClient(baseURL: URL(string: "https://rps-app.vb76iz9iykg.au-syd.codeengine.appdomain.cloud")!)
+        let client = RelyingPartyClient(baseURL: URL(string: baseURL)!)
         
         // When
         let result = try await client.challenge(type: .assertion)
@@ -55,7 +57,7 @@ final class RelyingPartyKitTests: XCTestCase {
     
     func testChallengeAttestation() async throws {
         // Given
-        let client = RelyingPartyClient(baseURL: URL(string: "https://rps-app.vb76iz9iykg.au-syd.codeengine.appdomain.cloud")!)
+        let client = RelyingPartyClient(baseURL: URL(string: baseURL)!)
         
         // When
         do {
@@ -70,7 +72,7 @@ final class RelyingPartyKitTests: XCTestCase {
     
     func testRegister() async throws {
         // Given
-        let client = RelyingPartyClient(baseURL: URL(string: "https://rps-app.vb76iz9iykg.au-syd.codeengine.appdomain.cloud")!)
+        let client = RelyingPartyClient(baseURL: URL(string: baseURL)!)
         
         // When
         do {
@@ -89,7 +91,7 @@ final class RelyingPartyKitTests: XCTestCase {
     
     func testSignin() async throws {
         // Given
-        let client = RelyingPartyClient(baseURL: URL(string: "https://rps-app.vb76iz9iykg.au-syd.codeengine.appdomain.cloud")!)
+        let client = RelyingPartyClient(baseURL: URL(string: baseURL)!)
         
         // When
         do {
