@@ -27,13 +27,13 @@ This scenario is where the user doesn't exist in your identity system and requir
 ```
 import RelyingPartyKit
 
-// The `baseURL` is the host of the relying party server.
+// The baseURL is the host of the relying party server.
 let client = RelyingPartyClient(baseURL: URL(string: "https://example.com")!)
 
-// The result is an `OTPChallenge` to correlate the email sent to the email address.
+// The result is an OTPChallenge to correlate the email sent to the email address.
 let result = try await client.signup(name: "Anne Johnson", email: "anne_johnson@icloud.com")
 
-// Use the `result.transactionId` and the OTP value generated in the email to validate.   If successful, the returned `Token` can be used to register for Passkey.
+// Use the result.transactionId and the OTP value generated in the email to validate.   If successful, the returned Token can be used to register for Passkey.
 let token = try await client.validate(transactionId: result.transactionId, otp: "123456")
 ```
 
@@ -43,10 +43,10 @@ This scenario authenticates an existing user with an username and password.
 ```
 import RelyingPartyKit
 
-// The `baseURL` is the host of the relying party server.
+// The baseURL is the host of the relying party server.
 let client = RelyingPartyClient(baseURL: URL(string: "https://example.com")!)
 
-// The result is a `Token` which can be used to register for Passkey.
+// The result is a Token which can be used to register for Passkey.
 let token = try await client.authenticate(username: "anne_johnson@icloud.com", password: "a1b2c3d4")
 ```
 
@@ -56,7 +56,7 @@ This scenario requires the user to be authenticated with a valid `Token`. Regist
 ```
 import RelyingPartyKit
 
-// The `baseURL` is the host of the relying party server.
+// The baseURL is the host of the relying party server.
 let client = RelyingPartyClient(baseURL: URL(string: "https://example.com")!)
 
 let username = "anne_johnson@icloud.com"
@@ -74,7 +74,7 @@ let controller = ASAuthorizationController(authorizationRequests: [request])
     controller.delegate = self
     controller.presentationContextProvider = self
 
-// This will display the Passkey sheet for the user to continue with the registration.  The outcome of the registration request is provided on the `ASAuthorizationControllerDelegate`.
+// This will display the Passkey sheet for the user to continue with the registration.  The outcome of the registration request is provided on the ASAuthorizationControllerDelegate.
 controller.performRequests()
 
 
@@ -99,7 +99,7 @@ This scenario is for users who have previously registered their device using Pas
 ```
 import RelyingPartyKit
 
-// The `baseURL` is the host of the relying party server.
+// The baseURL is the host of the relying party server.
 let client = RelyingPartyClient(baseURL: URL(string: "https://example.com")!)
 
 // First generate a challenge from the relying party server.
@@ -112,7 +112,7 @@ let controller = ASAuthorizationController(authorizationRequests: [request])
     controller.delegate = self
     controller.presentationContextProvider = self
 
-// This will show the Passkey sheet for the user to continue with the registration and provides the outcome of the registration request on the `ASAuthorizationControllerDelegate`
+// This will show the Passkey sheet for the user to continue with the registration and provides the outcome of the registration request on the ASAuthorizationControllerDelegate.
 controller.performRequests()
 
 
