@@ -21,7 +21,7 @@ RelyingPArtyKit is available as a Swift Package Manager package.  To use it, spe
 
 ## Contents
 
-#### Allowing a user to sign-up
+### Allowing a user to sign-up
 This scenario is where the user doesn't exist in your identity system and requires ownership of an email address for validation.
 
 ```
@@ -37,7 +37,7 @@ let result = try await client.signup(name: "Anne Johnson", email: "anne_johnson@
 let token = try await client.validate(transactionId: result.transactionId, otp: "123456")
 ```
 
-#### Authenticating an existing user
+### Authenticating an existing user
 This scenario authenticates an existing user with an username and password.
 
 ```
@@ -50,7 +50,7 @@ let client = RelyingPartyClient(baseURL: URL(string: "https://example.com")!)
 let token = try await client.authenticate(username: "anne_johnson@icloud.com", password: "a1b2c3d4")
 ```
 
-#### Registering for Passkey
+### Registering for Passkey
 This scenario requires the user to be authenticated with a valid `Token`. Registering for Passkey uses [ASAuthorizationControllerDelegate](https://developer.apple.com/documentation/authenticationservices/asauthorizationcontrollerdelegate/) to handle the result of the platform key registration request.
 
 ```
@@ -77,7 +77,6 @@ let controller = ASAuthorizationController(authorizationRequests: [request])
 // This will display the Passkey sheet for the user to continue with the registration.  The outcome of the registration request is provided on the ASAuthorizationControllerDelegate.
 controller.performRequests()
 
-
 // Respond to the request
 func authorizationController(controller: controller, didCompleteWithAuthorization: authorization) {
     if let credential = authorization.credential as? ASAuthorizationPlatformPublicKeyCredentialRegistration {
@@ -93,7 +92,7 @@ func authorizationController(controller: controller, didCompleteWithAuthorizatio
 }
 ```
 
-#### Verifying an account with Passkey
+### Verifying an account with Passkey
 This scenario is for users who have previously registered their device using Passkey. Similar to registering for Passkey, it  uses [ASAuthorizationControllerDelegate](https://developer.apple.com/documentation/authenticationservices/asauthorizationcontrollerdelegate/) to handle the result of the platform key assertion request.
 
 ```
@@ -128,3 +127,4 @@ func authorizationController(controller: controller, didCompleteWithAuthorizatio
         // Handle other authentication cases, such as Sign in with Apple.
     }
 }
+```
