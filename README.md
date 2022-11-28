@@ -128,9 +128,3 @@ func authorizationController(controller: controller, didCompleteWithAuthorizatio
         // Handle other authentication cases, such as Sign in with Apple.
     }
 }
-
-
-
-
-
-
