@@ -1,4 +1,4 @@
-# RelyingPartyKit
+# Relying Party Kit
 
 Deliver Apple Passkey solutions to your users.
 
