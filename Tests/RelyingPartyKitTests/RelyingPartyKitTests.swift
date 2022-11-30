@@ -98,7 +98,8 @@ final class RelyingPartyKitTests: XCTestCase {
             _ = try await client.signin(signature: Data("signature".utf8),
                                         clientDataJSON: Data("clientDataJSON".utf8),
                                         authenticatorData: Data("authenticatorData".utf8),
-                                        credentialId: Data("credentialId".utf8))
+                                        credentialId: Data("credentialId".utf8),
+                                        userID: Data("userId".utf8))
         }
         catch let error {
             // Then

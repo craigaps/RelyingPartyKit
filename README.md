@@ -122,7 +122,8 @@ func authorizationController(controller: controller, didCompleteWithAuthorizatio
         client.signin(signature: credential.signature,
             clientDataJSON: credential.rawClientDataJSON,
             authenticatorData: credential.rawAuthenticatorData,
-            credentialId: credential.credentialID)
+            credentialId: credential.credentialID,
+            userId: credential.credential.userID)
     } else {
         // Handle other authentication cases, such as Sign in with Apple.
     }

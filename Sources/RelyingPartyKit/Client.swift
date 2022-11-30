@@ -262,6 +262,7 @@ public struct RelyingPartyClient {
     ///   - clientDataJSON: Raw data that contains a JSON-compatible encoding of the client data.
     ///   - authenticatorData: A byte sequence that contains additional information about the credential.
     ///   - credentialId: An identifier that the authenticator generates during registration to uniquely identify a specific credential.
+    ///   - userId:The userId provided when creating this credential.
     /// - Returns: A ``Token`` representing an authenticated user.
     ///
     /// An example request for registering a FIDO authenticator:
@@ -285,7 +286,7 @@ public struct RelyingPartyClient {
     /// func authorizationController(controller: controller, didCompleteWithAuthorization: authorization) {
     ///  if let credential = authorization.credential as? ASAuthorizationPlatformPublicKeyCredentialAssertion {
     ///    // Take steps to verify the challenge.
-    ///    token = try await client.signin(signature: credential.signature, clientDataJSON: credential.rawClientDataJSON, authenticatorData: credential.rawAuthenticatorData, credentialId: credential.userID)
+    ///    token = try await client.signin(signature: credential.signature, clientDataJSON: credential.rawClientDataJSON, authenticatorData: credential.rawAuthenticatorData, credentialId: credential.credentialId, userId: credential.userID)
     ///  }
     /// }
     ///
@@ -293,12 +294,13 @@ public struct RelyingPartyClient {
     ///  // Handle the error.
     ///}
     /// ```
-    public func signin(signature: Data, clientDataJSON: Data, authenticatorData: Data, credentialId: Data) async throws -> Token {
+    public func signin(signature: Data, clientDataJSON: Data, authenticatorData: Data, credentialId: Data, userId: Data) async throws -> Token {
         // Create and encode the FIDO2 registration data.
         let verification = FIDO2Verification(clientDataJSON: clientDataJSON.base64UrlEncodedString(),
                                              authenticatorData: authenticatorData.base64UrlEncodedString(),
                                              credentialId: credentialId.base64UrlEncodedString(),
-                                             signature: signature.base64UrlEncodedString())
+                                             signature: signature.base64UrlEncodedString(),
+                                             userHandle: String(decoding: userId, as: UTF8.self))
         let body = try JSONEncoder().encode(verification)
         let url = baseURL.appendingPathComponent("/v1/signin")
         

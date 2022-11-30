@@ -45,6 +45,9 @@ struct FIDO2Registration: Encodable {
     ///
     /// The string is Base64 URL encoded with URL safe characters.
     let credentialId: String
+    
+    /// The userId provided when creating this credential.
+    let userHandle: String
 }
 
 /// A structure representing a FIDO2 verification.
@@ -62,4 +65,7 @@ struct FIDO2Verification: Encodable {
     
     /// The base64Url-encoded bytes of the signature of the challenge data that was produced by the authenticator.
     let signature: String
+    
+    /// The userId provided when creating this credential.
+    let userHandle: String
 }
