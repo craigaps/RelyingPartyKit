@@ -63,7 +63,8 @@ let username = "anne_johnson@icloud.com"
 let nickname = "Anne's iPhone"
 
 // First generate a challenge from the relying party server.
-let challenge = try await client.challenge(type: .attestation, displayName: nickname, token: token)
+let result = try await client.challenge(type: .attestation, displayName: nickname, token: token)
+let challenge = result.challenge.base64UrlEncodedStringWithPadding
 
 // Construct a request to the platform provider with the challenge.
 let provider = ASAuthorizationPlatformPublicKeyCredentialProvider(relyingPartyIdentifier: "example.com")
@@ -102,7 +103,8 @@ import RelyingPartyKit
 let client = RelyingPartyClient(baseURL: URL(string: "https://example.com")!)
 
 // First generate a challenge from the relying party server.
-let challenge = try await client.challenge(type: .assertion)
+let result = try await client.challenge(type: .assertion)
+let challenge = result.challenge.base64UrlEncodedStringWithPadding
 
 // Construct a request to the platform provider with the challenge.
 let provider = ASAuthorizationPlatformPublicKeyCredentialProvider(relyingPartyIdentifier: "example.com")
@@ -123,7 +125,7 @@ func authorizationController(controller: controller, didCompleteWithAuthorizatio
             clientDataJSON: credential.rawClientDataJSON,
             authenticatorData: credential.rawAuthenticatorData,
             credentialId: credential.credentialID,
-            userId: credential.credential.userID)
+            userId: credential.userID)
     } else {
         // Handle other authentication cases, such as Sign in with Apple.
     }
